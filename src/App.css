@@ -1,0 +1,10 @@
+.nav-item{
+    padding: .5em 1em;
+    border-radius: 10px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.nav-item:hover{
+    background-color: aqua;
+}
