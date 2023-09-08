@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <div className="main-wrapper">
+      <div className="main-wrapper flex flex-col">
         <Outlet />
       </div>
     </>

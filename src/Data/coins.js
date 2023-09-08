@@ -1,4 +1,4 @@
-{
+export const details = {
     "status": "success",
     "data": {
       "stats": {

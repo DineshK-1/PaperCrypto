@@ -1,10 +1,74 @@
-.nav-item{
+.profit-color {
+    color: green;
+}
+
+.loss-color {
+    color: red;
+}
+
+.navbar {
+    border-bottom: 1px solid #d3d3d3;
+    background-color: #fff;
+}
+
+.nav-item {
     padding: .5em 1em;
     border-radius: 10px;
     user-select: none;
     cursor: pointer;
+    transition: all 250ms;
+    font-weight: 500;
 }
 
-.nav-item:hover{
-    background-color: aqua;
+.nav-item:hover {
+    background-color: #1450A3;
+    color: white;
+}
+
+.cryptos-page {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+td {
+    padding: 1em 0;
+    text-align: center;
+}
+
+tr {
+    border: 2px solid transparent;
+    transition: all 500ms;
+}
+
+tr:hover {
+    border-bottom: 2px solid #d3d3d3;
+}
+
+th {
+    padding: 1em 0;
+    font-weight: 700;
+    border-bottom: 2px solid #d3d3d3;
+}
+
+thead {
+    border-bottom: 1px solid #d3d3d3;
+}
+
+tbody {
+    font-weight: 500;
+}
+
+.crypto-table {
+    padding: 200px;
+
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    transition: all 300ms;
+}
+
+.card:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
