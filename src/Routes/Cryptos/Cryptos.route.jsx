@@ -3,7 +3,7 @@ import { details } from "../../Data/coins";
 
 const CryptoRoute = () => {
     const det = details["data"];
-
+    
     return (
         <>
             <div className="cryptos-page flex w-full">
@@ -14,7 +14,7 @@ const CryptoRoute = () => {
                     </div>
 
                     <div className="table-section flex flex-col gap-5">
-                        <h2 className="text-3xl font-semibold">Crypto Coins</h2>
+                        <h2 className="text-3xl font-semibold p-2">Crypto Coins</h2>
                         <div className="flex flex-col w-full">
                             <CryptoTable coinData={det} />
                         </div>

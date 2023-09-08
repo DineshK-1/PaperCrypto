@@ -31,7 +31,7 @@
 }
 
 td {
-    padding: 1em 0;
+    padding: .5em 0;
     text-align: center;
 }
 
@@ -47,11 +47,6 @@ tr:hover {
 th {
     padding: 1em 0;
     font-weight: 700;
-    border-bottom: 2px solid #d3d3d3;
-}
-
-thead {
-    border-bottom: 1px solid #d3d3d3;
 }
 
 tbody {
@@ -60,7 +55,6 @@ tbody {
 
 .crypto-table {
     padding: 200px;
-
 }
 
 .card {
@@ -71,4 +65,8 @@ tbody {
 
 .card:hover {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+td.overflow-column {
+    max-width: 80px;
 }
