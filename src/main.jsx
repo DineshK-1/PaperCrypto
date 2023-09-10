@@ -8,6 +8,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import ViewCoin from './Routes/ViewCoin/ViewCoin.component.jsx';
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "Cryptos",
                 element: <CryptoRoute />,
+            },
+            {
+                path: "Cryptos/:uid",
+                element: <ViewCoin />,
             },
         ],
     },
