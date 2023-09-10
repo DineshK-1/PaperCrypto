@@ -5,7 +5,13 @@ const CurrencyText = ({ amoun }) => {
     const [amount, setAmount] = useState();
 
     useEffect(() => {
-        setAmount(parseFloat(amoun).toFixed(2).toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        amoun = parseFloat(amoun);
+        if (amoun > 100000) {
+            amoun = parseInt(amoun);
+        } else {
+            amoun = amoun.toFixed(2);
+        }
+        setAmount(amoun.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
     }, [amoun])
 
     return (
