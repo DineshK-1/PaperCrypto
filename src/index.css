@@ -23,6 +23,7 @@ a {
 body {
   margin: 0;
   min-width: 320px;
-  background-color: #F0F0F0;
+  background-color: #f9fbfd;
+  color: #12263f;
   font-size: 14px;
 }
