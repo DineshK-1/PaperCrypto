@@ -82,7 +82,7 @@ export async function CreateUserinDB(uid, First_Name, Last_Name, Email, Phone) {
   }
 }
 
-export async function AddMoney(uid, amount) {
+export async function addMoneyDB(uid, amount) {
   const options = {
     method: 'POST',
     url: `https://papercryptoapi.onrender.com/add_balance`,

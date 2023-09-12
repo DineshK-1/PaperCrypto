@@ -6,11 +6,12 @@ export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
     const [user, setCurrentUser] = useState(null)
-    var isLoggedIn = (user ? true : false);
+
+    const [refresh, setRefresh] = useState(false);
 
     const [db_user, setDBUser] = useState({});
 
-    const value = { user, isLoggedIn, db_user, setDBUser }
+    const value = { user, refresh, setRefresh, db_user, setDBUser }
 
     useEffect(() => {
         const unsubscribe = OnAuthStateChangedListener((user) => {

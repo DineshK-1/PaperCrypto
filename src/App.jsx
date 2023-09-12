@@ -6,7 +6,7 @@ import { UserContext } from './Contexts/user.context'
 import { FetchDBData } from './Helpers/API_Calls'
 
 function App() {
-  const { user, setDBUser } = useContext(UserContext);
+  const { user, setDBUser, refresh } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ function App() {
       })
     }
 
-  }, [user, location])
+  }, [user, location, refresh])
 
   return (
     <>
