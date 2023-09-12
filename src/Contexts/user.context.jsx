@@ -8,7 +8,9 @@ export const UserProvider = ({ children }) => {
     const [user, setCurrentUser] = useState(null)
     var isLoggedIn = (user ? true : false);
 
-    const value = { user, isLoggedIn }
+    const [db_user, setDBUser] = useState({});
+
+    const value = { user, isLoggedIn, db_user, setDBUser }
 
     useEffect(() => {
         const unsubscribe = OnAuthStateChangedListener((user) => {

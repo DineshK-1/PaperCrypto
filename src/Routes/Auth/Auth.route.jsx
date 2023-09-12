@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 const AuthRoute = () => {
 
-    const { user } = useContext(UserContext)
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
     // if (user) {

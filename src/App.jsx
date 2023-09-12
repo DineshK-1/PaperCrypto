@@ -1,8 +1,45 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 import NavBar from './Components/NavBar/NavBar.component'
+import { useContext, useEffect, useState } from 'react'
+import { UserContext } from './Contexts/user.context'
+import { FetchDBData } from './Helpers/API_Calls'
 
 function App() {
+  const { user, setDBUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const [userCreated, setUserCreated] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname != "/CompleteRegisteration") {
+      if (user) {
+        if (!userCreated) {
+          FetchDBData(user.uid).then((res) => {
+            if (!res) {
+              setUserCreated(false);
+              navigate("/CompleteRegisteration")
+            } else {
+              setUserCreated(true);
+            }
+            return res
+          })
+        }
+      }
+    }
+  }, [user, userCreated, location])
+
+  useEffect(() => {
+    if (user) {
+      FetchDBData(user.uid).then((res) => {
+        setDBUser(res);
+      })
+    }
+
+  }, [user, location])
 
   return (
     <>

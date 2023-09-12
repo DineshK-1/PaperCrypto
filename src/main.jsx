@@ -13,6 +13,7 @@ import AuthRoute from './Routes/Auth/Auth.route.jsx';
 import { UserProvider } from './Contexts/user.context.jsx';
 import ProfileRoute from './Routes/Profile/Profile.route.jsx';
 import DashboardRoute from './Routes/Dashboard/Dashboard.component.jsx';
+import { CreateDBUser } from './Routes/CreateDBUser/CreateDBUser.route.jsx';
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             {
                 path: "Dashboard",
                 element: <DashboardRoute />,
+            },
+            {
+                path: "CompleteRegisteration",
+                element: <CreateDBUser />,
             },
         ],
     },

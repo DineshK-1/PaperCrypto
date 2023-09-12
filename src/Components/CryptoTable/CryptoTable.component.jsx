@@ -20,7 +20,7 @@ const CryptoTable = ({ coinData }) => {
     const navigate = useNavigate();
 
     return (
-        <table className="crypto-table card">
+        <table className="crypto-table">
             <thead>
                 <tr className="select-none">
                     <th>#</th>
