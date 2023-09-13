@@ -28,3 +28,5 @@ export const signInwithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const OnAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 
+export const signOutOfApp = () => signOut(auth);
+

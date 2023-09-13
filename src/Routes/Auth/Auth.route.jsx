@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { signInwithGooglePopup } from "../../Utils/firebase";
 import { UserContext } from "../../Contexts/user.context";
 import { useNavigate } from "react-router";
@@ -8,9 +8,12 @@ const AuthRoute = () => {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
-    // if (user) {
-    //     return navigate("/")
-    // }
+    useEffect(() => {
+        if (user) {
+            navigate("/Dashboard")
+        }
+    }, [user])
+
 
     return (
         <div className="flex login-container">

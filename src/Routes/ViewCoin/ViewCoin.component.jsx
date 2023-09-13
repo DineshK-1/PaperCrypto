@@ -245,8 +245,8 @@ const ViewCoin = () => {
 
                     <div className="text-xl text-black">Links</div>
                     <div className="flex flex-wrap w-fit" style={{ maxWidth: "350px" }}>
-                        {coinDetails.links.map((e) => {
-                            return <Link to={e.url} className="p-2">{e.name}</Link>
+                        {coinDetails.links.map((e, i) => {
+                            return <Link key={i} to={e.url} className="p-2">{e.name}</Link>
                         })}
                     </div>
                 </div>

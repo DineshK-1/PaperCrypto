@@ -22,7 +22,7 @@ const DashboardRoute = () => {
                         <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-slate-300">account_balance</span>
                         <div className="flex flex-col">
                             <span className="text-sm">Current Balance:</span>
-                            <span className="blue font-semibold">${db_user.Current_Balance}</span>
+                            <span className="blue font-semibold">{db_user?.Current_Balance ? `$${db_user.Current_Balance}` : "..."}</span>
                         </div>
                         </div>
                         
