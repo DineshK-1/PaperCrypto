@@ -171,12 +171,18 @@ export async function FetchCryptoHoldings(uid) {
 }
 
 export async function FetchListOfCoins(symbol_list) {
+  const listofSymbols = {}
+
+  symbol_list.map((sym, i) => {
+    listofSymbols[`symbols[${i}]`] = sym;
+  })
+
   const options = {
     method: 'GET',
     url: `https://coinranking1.p.rapidapi.com/coins`,
     params: {
-      'symbols[0]': symbol_list.join(','),
       'tiers[0]': '1',
+      ...listofSymbols
     },
     headers: {
       'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,

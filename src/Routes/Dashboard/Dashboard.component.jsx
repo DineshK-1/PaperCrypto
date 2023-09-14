@@ -4,7 +4,6 @@ import AddMoney from "../../Components/AddMoney/AddMoney.component";
 import CurrencyText from "../../Components/CurrencyText/CurrencyText.component";
 import { FetchCryptoHoldings, FetchListOfCoins } from "../../Helpers/API_Calls";
 import CryptoHoldings from "../../Components/Dashboard/Holdings.component";
-import { list } from "postcss";
 
 const DashboardRoute = () => {
 
@@ -15,6 +14,8 @@ const DashboardRoute = () => {
     const [cryptoHoldings, setCryptoHoldings] = useState([]);
 
     const [listOfCoins, setListOfCoins] = useState([]);
+
+    const [portValue, setValue] = useState(0)
 
     useEffect(() => {
         if (!user) {
@@ -33,17 +34,30 @@ const DashboardRoute = () => {
             })
 
             FetchListOfCoins(symbol_list).then((res) => {
-                const coins = res?.data.coins.map((data) => {
-                    const obj = {}
-                    obj[data.symbol] = data
-                    return obj
+                const coins = {}
+
+                res.data.coins.map((coin) => {
+                    coins[coin.symbol] = coin
                 })
-                console.log(coins)
+
                 setListOfCoins(coins);
             })
 
         }
     }, [cryptoHoldings])
+
+    useEffect(() => {
+        if(!listOfCoins.length === 0)
+            return;
+
+        let port = 0;
+
+        cryptoHoldings.map((holding) => {
+            port += holding.amount * listOfCoins[holding.token_symbol]?.price
+        })
+
+        setValue(port);
+    }, [cryptoHoldings, listOfCoins])
 
     return (
         <Fragment>
@@ -72,7 +86,7 @@ const DashboardRoute = () => {
                         <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-slate-300">currency_bitcoin</span>
                         <div className="flex flex-col">
                             <span className="text-sm">Portfolio Value:</span>
-                            <span className="blue font-semibold">$0.00</span>
+                            <span className="blue font-semibold"><CurrencyText amoun={portValue} /></span>
                         </div>
                     </div>
                 </div>
