@@ -3,9 +3,10 @@ import CurrencyText from "../../Components/CurrencyText/CurrencyText.component";
 import { Chart as ChartJS, CategoryScale, LineElement, LinearScale, PointElement, Title, Tooltip, Legend, Filler, defaults } from "chart.js";
 import { Line } from "react-chartjs-2";
 import Annotation from "chartjs-plugin-annotation";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FetchCoin, FetchCoinPrice } from "../../Helpers/API_Calls";
+import BuyModal from "../../Components/ViewCoin/BuyModal.component";
 
 
 ChartJS.register(
@@ -188,6 +189,9 @@ const ViewCoin = () => {
         ],
     };
 
+    const [buyModal, setBuyModal] = useState(false);
+    const [sellModal, setSellModal] = useState(false);
+
     if (!loaded) {
         return (
             <div className="loading">Loading</div>
@@ -195,63 +199,69 @@ const ViewCoin = () => {
     }
 
     return (
-        <div className="coin flex flex-col items-center font-semibold mt-6 gap-3">
-            <div className="breadcrumb">
-                <Link to="/Cryptos">Cryptocurrencies</Link> {">"} <span>{coinDetails.name}</span>
-            </div>
-            <div className="flex flex-col xl:flex-row mx-4 w-full md:w-5/6 gap-5 justify-center">
-                <div className="flex flex-col w-full" style={{flex: "2"}}>
-                    <div className="flex items-center gap-3 p-2 w-fit">
-                        <img src={coinDetails.iconUrl} width={64} />
-                        <div className="flex flex-col gap-3">
-                            <div className="flex gap-3 items-center">
-                                <div className="text-xl">{coinDetails.name}</div>
-                                <div className="px-2 py-1 text-xs rounded-lg" style={{ border: `2px solid ${coinDetails.color}` }}>{coinDetails.symbol}</div>
-                                <div className="p-2 px-3 text-xs rounded-lg rank-label select-none"># {coinDetails.rank}</div>
-                            </div>
-                            <div className="hidden md:flex text-gray-500">
-                                {coinDetails.description}
+        <Fragment>
+            {
+                buyModal &&
+                <BuyModal coin={coinDetails} setBuyModal={setBuyModal} />
+            }
+            <div className="coin flex flex-col items-center font-semibold mt-6 gap-3">
+                <div className="breadcrumb">
+                    <Link to="/Cryptos">Cryptocurrencies</Link> {">"} <span>{coinDetails.name}</span>
+                </div>
+                <div className="flex flex-col xl:flex-row mx-4 w-full md:w-5/6 gap-5 justify-center">
+                    <div className="flex flex-col w-full" style={{ flex: "2" }}>
+                        <div className="flex items-center gap-3 p-2 w-fit">
+                            <img src={coinDetails.iconUrl} width={64} />
+                            <div className="flex flex-col gap-3">
+                                <div className="flex gap-3 items-center">
+                                    <div className="text-xl">{coinDetails.name}</div>
+                                    <div className="px-2 py-1 text-xs rounded-lg" style={{ border: `2px solid ${coinDetails.color}` }}>{coinDetails.symbol}</div>
+                                    <div className="p-2 px-3 text-xs rounded-lg rank-label select-none"># {coinDetails.rank}</div>
+                                </div>
+                                <div className="hidden md:flex text-gray-500">
+                                    {coinDetails.description}
+                                </div>
                             </div>
                         </div>
+                        <div className="flex flex-col p-4 w-full">
+                            <div className="flex justify-end cursor-pointer select-none">
+                                {dateRange.map((date, idx) => {
+                                    return <span key={idx} className={"p-2 px-3 range-button rounded-md" + (idx == activeRange ? " activeRange" : "")} onClick={() => { setActiveRange(idx) }}>{date}</span>
+                                })}
+                            </div>
+                            <Line data={data} options={options} />
+                        </div>
                     </div>
-                    <div className="flex flex-col p-4 w-full">
-                        <div className="flex justify-end cursor-pointer select-none">
-                            {dateRange.map((date, idx) => {
-                                return <span key={idx} className={"p-2 px-3 range-button rounded-md" + (idx == activeRange ? " activeRange" : "")} onClick={() => { setActiveRange(idx) }}>{date}</span>
+                    <div className="flex flex-col gap-3 p-2 coin-details-container whitespace-nowrap text-gray-600">
+                        <div className="flex items-center gap-2 text-black">
+                            <div className="text-4xl"><CurrencyText amoun={coinDetails.price} /></div>
+                            <div className={coinDetails.change >= 0 ? "profit-color" : "loss-color"}>{coinDetails.change} <span className="text-xs">{"(24h)"}</span></div>
+                        </div>
+
+                        <div className="text-xl text-black">Key Stats</div>
+                        <div className="flex gap-2 justify-between">24h Volume<span><CurrencyText amoun={coinDetails["24hVolume"]} /></span></div>
+                        <div className="flex gap-2 justify-between">Market Cap<span><CurrencyText amoun={coinDetails["marketCap"]} /></span></div>
+                        <div className="flex gap-2 justify-between">Diluted Market Cap<span><CurrencyText amoun={coinDetails["fullyDilutedMarketCap"]} /></span></div>
+
+                        <div className="flex flex-col items-center gap-3">
+                            <div className="flex w-full text-xl justify-center cursor-pointer select-none items-center p-4 buy-button" onClick={() => setBuyModal(true)}>
+                                BUY
+                            </div>
+                            <div className="flex w-full text-xl justify-center cursor-pointer select-none items-center p-4 sell-button" onClick={() => setSellModal(true)}>
+                                SELL
+                            </div>
+                        </div>
+
+                        <div className="text-xl text-black">Links</div>
+                        <div className="flex flex-wrap w-fit" style={{ maxWidth: "350px" }}>
+                            {coinDetails.links.map((e, i) => {
+                                return <Link key={i} to={e.url} className="p-2">{e.name}</Link>
                             })}
                         </div>
-                        <Line data={data} options={options} />
-                    </div>
-                </div>
-                <div className="flex flex-col gap-3 p-2 coin-details-container whitespace-nowrap text-gray-600">
-                    <div className="flex items-center gap-2 text-black">
-                        <div className="text-4xl"><CurrencyText amoun={coinDetails.price} /></div>
-                        <div className={coinDetails.change >= 0 ? "profit-color" : "loss-color"}>{coinDetails.change} <span className="text-xs">{"(24h)"}</span></div>
-                    </div>
-
-                    <div className="text-xl text-black">Key Stats</div>
-                    <div className="flex gap-2 justify-between">24h Volume<span><CurrencyText amoun={coinDetails["24hVolume"]} /></span></div>
-                    <div className="flex gap-2 justify-between">Market Cap<span><CurrencyText amoun={coinDetails["marketCap"]} /></span></div>
-                    <div className="flex gap-2 justify-between">Diluted Market Cap<span><CurrencyText amoun={coinDetails["fullyDilutedMarketCap"]} /></span></div>
-
-                    <div className="flex flex-col items-center gap-3">
-                        <div className="flex w-full text-xl justify-center cursor-pointer select-none items-center p-4 buy-button">
-                            BUY
-                        </div>
-                        <div className="flex w-full text-xl justify-center cursor-pointer select-none items-center p-4 sell-button">
-                            SELL
-                        </div>
-                    </div>
-
-                    <div className="text-xl text-black">Links</div>
-                    <div className="flex flex-wrap w-fit" style={{ maxWidth: "350px" }}>
-                        {coinDetails.links.map((e, i) => {
-                            return <Link key={i} to={e.url} className="p-2">{e.name}</Link>
-                        })}
                     </div>
                 </div>
             </div>
-        </div>
+        </Fragment>
     )
 }
 

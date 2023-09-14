@@ -134,3 +134,38 @@ export async function FetchBalance(uid) {
     console.error(error);
   }
 }
+
+export async function BuyCryptoAPI(uid, token_id, amount) {
+  const options = {
+    method: 'POST',
+    url: `https://papercryptoapi.onrender.com/users/${uid}/buy_crypto`,
+    params:{
+      token_id,
+      amount
+    }
+  };
+
+  try {
+    const response = await axios.request(options);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+export async function FetchCryptoHoldings(uid) {
+  const options = {
+    method: 'POST',
+    url: `https://papercryptoapi.onrender.com/users/${uid}/crypto_holdings`,
+  };
+
+  try {
+    const response = await axios.request(options);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}

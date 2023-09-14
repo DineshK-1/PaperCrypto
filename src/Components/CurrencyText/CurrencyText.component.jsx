@@ -5,6 +5,14 @@ const CurrencyText = ({ amoun }) => {
     const [amount, setAmount] = useState();
 
     useEffect(() => {
+        if (amoun == 0) {
+            setAmount(0.00)
+            return
+        }
+        if (!amoun) {
+            setAmount("...")
+            return;
+        }
         amoun = parseFloat(amoun);
         if (amoun > 100000) {
             amoun = parseInt(amoun);

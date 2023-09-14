@@ -1,6 +1,7 @@
 import { Fragment, useContext, useState } from "react";
 import { UserContext } from "../../Contexts/user.context";
 import AddMoney from "../../Components/AddMoney/AddMoney.component";
+import CurrencyText from "../../Components/CurrencyText/CurrencyText.component";
 
 const DashboardRoute = () => {
 
@@ -19,13 +20,13 @@ const DashboardRoute = () => {
                 <div className="flex gap-2 mt-10">
                     <div className="flex p-6 gap-3 items-center card flex-1 justify-between">
                         <div className="flex items-center gap-3">
-                        <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-slate-300">account_balance</span>
-                        <div className="flex flex-col">
-                            <span className="text-sm">Current Balance:</span>
-                            <span className="blue font-semibold">{db_user?.Current_Balance ? `$${db_user.Current_Balance}` : "..."}</span>
+                            <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-slate-300">account_balance</span>
+                            <div className="flex flex-col">
+                                <span className="text-sm">Current Balance:</span>
+                                <span className="blue font-semibold"><CurrencyText amoun={db_user?.Current_Balance} /></span>
+                            </div>
                         </div>
-                        </div>
-                        
+
                         <span
                             className="material-symbols-outlined bg-green-600 rounded-lg p-1 text-white cursor-pointer"
                             onClick={() => { setModal(true) }}
