@@ -28,7 +28,7 @@ const ViewCoin = () => {
 
     const [activeRange, setActiveRange] = useState(1);
 
-    const [coinDetails, setCoinDetails] = useState({});
+    const [coinDetails, setCoinDetails] = useState();
     const [labelDetails, setLabelDetails] = useState([])
     const [priceDetails, setPriceDetails] = useState([]);
 
@@ -195,6 +195,14 @@ const ViewCoin = () => {
     if (!loaded) {
         return (
             <div className="loading">Loading</div>
+        )
+    }
+
+    if(!coinDetails){
+        return(
+            <div className="coin flex flex-col items-center font-semibold mt-6 gap-3">
+                Coin Dosen't Exist
+            </div>
         )
     }
 

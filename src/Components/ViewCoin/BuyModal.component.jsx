@@ -22,6 +22,16 @@ const BuyModal = ({ coin, setBuyModal }) => {
         })
     }
 
+    if (!user) {
+        return (
+            <div className="modal-blur">
+                <div className="buy-modal login-container flex flex-col gap-4 bg-white p-6 rounded-lg font-semibold">
+                    Login to paper trade cryptocurrencies.
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="modal-blur">
             <div className="buy-modal login-container flex flex-col gap-4 bg-white p-6 rounded-lg font-semibold">
@@ -36,7 +46,7 @@ const BuyModal = ({ coin, setBuyModal }) => {
 
                 <input type="text" placeholder="Enter amount here..." value={amount} onChange={(e) => {
                     setAmount(e.target.value.replace("/[^0-9]+/g", ""))
-                    }} />
+                }} />
 
                 <div className="flex flex-col gap-1">
                     <span>Estimated Cost</span>

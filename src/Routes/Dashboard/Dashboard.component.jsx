@@ -1,13 +1,49 @@
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Contexts/user.context";
 import AddMoney from "../../Components/AddMoney/AddMoney.component";
 import CurrencyText from "../../Components/CurrencyText/CurrencyText.component";
+import { FetchCryptoHoldings, FetchListOfCoins } from "../../Helpers/API_Calls";
+import CryptoHoldings from "../../Components/Dashboard/Holdings.component";
+import { list } from "postcss";
 
 const DashboardRoute = () => {
 
-    const { db_user } = useContext(UserContext);
+    const { db_user, user } = useContext(UserContext);
 
     const [moneyModal, setModal] = useState(false);
+
+    const [cryptoHoldings, setCryptoHoldings] = useState([]);
+
+    const [listOfCoins, setListOfCoins] = useState([]);
+
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+
+        FetchCryptoHoldings(user.uid).then((res) => {
+            setCryptoHoldings(res)
+        })
+    }, [])
+
+    useEffect(() => {
+        if (cryptoHoldings.length > 0) {
+            const symbol_list = cryptoHoldings.map((holding) => {
+                return holding.token_symbol
+            })
+
+            FetchListOfCoins(symbol_list).then((res) => {
+                const coins = res?.data.coins.map((data) => {
+                    const obj = {}
+                    obj[data.symbol] = data
+                    return obj
+                })
+                console.log(coins)
+                setListOfCoins(coins);
+            })
+
+        }
+    }, [cryptoHoldings])
 
     return (
         <Fragment>
@@ -44,7 +80,7 @@ const DashboardRoute = () => {
                 <div className="flex flex-col gap-4 p-4 card">
                     <span className="text-xl">Current Holdings</span>
                     <div className="flex text-gray-500">
-                        <span>Get Started with Crypto today by clicking here!</span>
+                        <CryptoHoldings holdings={cryptoHoldings} listOfCoins={listOfCoins} />
                     </div>
                 </div>
                 <div className="flex gap-5">

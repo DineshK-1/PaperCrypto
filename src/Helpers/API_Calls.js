@@ -139,7 +139,7 @@ export async function BuyCryptoAPI(uid, token_id, amount) {
   const options = {
     method: 'POST',
     url: `https://papercryptoapi.onrender.com/users/${uid}/buy_crypto`,
-    params:{
+    params: {
       token_id,
       amount
     }
@@ -157,8 +157,31 @@ export async function BuyCryptoAPI(uid, token_id, amount) {
 
 export async function FetchCryptoHoldings(uid) {
   const options = {
-    method: 'POST',
+    method: 'GET',
     url: `https://papercryptoapi.onrender.com/users/${uid}/crypto_holdings`,
+  };
+
+  try {
+    const response = await axios.request(options);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function FetchListOfCoins(symbol_list) {
+  const options = {
+    method: 'GET',
+    url: `https://coinranking1.p.rapidapi.com/coins`,
+    params: {
+      'symbols[0]': symbol_list.join(','),
+      'tiers[0]': '1',
+    },
+    headers: {
+      'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
+      'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+    }
   };
 
   try {
