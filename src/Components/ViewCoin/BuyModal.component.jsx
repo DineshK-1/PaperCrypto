@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BuyCryptoAPI } from "../../Helpers/API_Calls";
 import CurrencyText from "../CurrencyText/CurrencyText.component";
 import { UserContext } from "../../Contexts/user.context";
@@ -7,12 +7,13 @@ const BuyModal = ({ coin, setBuyModal }) => {
 
     const { db_user, user, setRefresh } = useContext(UserContext);
 
-    const [amount, setAmount] = useState(0);
+    const [cryptoAmount, setCryptoAmount] = useState();
+    const [fiatAmount, setFiatAmount] = useState(0);
     const [buying, setBuying] = useState(false);
 
     const BuyCryptoFn = () => {
         setBuying(true)
-        BuyCryptoAPI(user.uid, coin.uuid, parseFloat(amount)).then((res) => {
+        BuyCryptoAPI(user.uid, coin.uuid, parseFloat(cryptoAmount)).then((res) => {
             if (res.status == "Success") {
                 setBuyModal(false)
             }
@@ -44,8 +45,16 @@ const BuyModal = ({ coin, setBuyModal }) => {
                     <span><CurrencyText amoun={coin.price} /></span>
                 </div>
 
-                <input type="text" placeholder="Enter amount here..." value={amount} onChange={(e) => {
-                    setAmount(e.target.value.replace("/[^0-9]+/g", ""))
+                <span className="text-xs">Amount in {coin.symbol}</span>
+                <input type="text" placeholder={`Enter amount in ${coin.symbol}`} value={cryptoAmount} onChange={(e) => {
+                    setCryptoAmount(e.target.value)
+                    setFiatAmount(coin.price * e.target.value)
+                }} />
+
+                <span className="text-xs">Amount in fiat</span>
+                <input type="text" placeholder={`Enter amount in fiat`} value={fiatAmount} onChange={(e) => {
+                    setFiatAmount(e.target.value)
+                    setCryptoAmount(e.target.value/coin.price)
                 }} />
 
                 <div className="flex flex-col gap-1">
@@ -53,16 +62,16 @@ const BuyModal = ({ coin, setBuyModal }) => {
                     <hr />
                     <div className="flex w-full justify-between font-medium">
                         <span>{coin.symbol}</span>
-                        <span><CurrencyText amoun={parseFloat(coin.price) * parseFloat(amount)} /></span>
+                        <span><CurrencyText amoun={parseFloat(coin.price) * parseFloat(cryptoAmount)} /></span>
                     </div>
-                    <div className={"flex w-full justify-between font-medium " + (parseFloat(coin.price) * parseFloat(amount) >= db_user.Current_Balance ? "text-red-500" : "text-green-500")}>
+                    <div className={"flex w-full justify-between font-medium " + (parseFloat(coin.price) * parseFloat(cryptoAmount) >= db_user.Current_Balance ? "text-red-500" : "text-green-500")}>
                         <span>Wallet Balance</span>
                         <span><CurrencyText amoun={db_user.Current_Balance} /></span>
                     </div>
                 </div>
 
 
-                <button className="login" onClick={BuyCryptoFn}>{buying ? "Completing transaction" : `Buy ${coin.symbol}`}</button>
+                <button className="login" onClick={BuyCryptoFn} disabled={!cryptoAmount}>{buying ? "Completing transaction" : `Buy ${coin.symbol}`}</button>
             </div>
         </div>
     )
