@@ -2,8 +2,10 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Contexts/user.context";
 import AddMoney from "../../Components/AddMoney/AddMoney.component";
 import CurrencyText from "../../Components/CurrencyText/CurrencyText.component";
-import { FetchCryptoHoldings, FetchListOfCoins } from "../../Helpers/API_Calls";
+import { FetchCryptoHoldings, FetchCryptoTransactions, FetchFiatTransactions, FetchListOfCoins } from "../../Helpers/API_Calls";
 import CryptoHoldings from "../../Components/Dashboard/Holdings.component";
+import CryptoTransactionsDashboard from "../../Components/Dashboard/CryptoTransactions.component";
+import FiatTransactionsDashboard from "../../Components/Dashboard/FiatTransactions.component";
 
 const DashboardRoute = () => {
 
@@ -15,7 +17,10 @@ const DashboardRoute = () => {
 
     const [listOfCoins, setListOfCoins] = useState([]);
 
-    const [portValue, setValue] = useState(0)
+    const [portValue, setValue] = useState(0);
+
+    const [fiatTransactions, setFiatTransactions] = useState([]);
+    const [cryptoTransactions, setCryptoTransactions] = useState([]);
 
     useEffect(() => {
         if (!user) {
@@ -24,6 +29,14 @@ const DashboardRoute = () => {
 
         FetchCryptoHoldings(user.uid).then((res) => {
             setCryptoHoldings(res)
+        })
+
+        FetchFiatTransactions(user.uid).then((res) => {
+            setFiatTransactions(res)
+        })
+
+        FetchCryptoTransactions(user.uid).then((res) => {
+            setCryptoTransactions(res)
         })
     }, [])
 
@@ -47,7 +60,7 @@ const DashboardRoute = () => {
     }, [cryptoHoldings])
 
     useEffect(() => {
-        if(!listOfCoins.length === 0)
+        if (!listOfCoins.length === 0)
             return;
 
         let port = 0;
@@ -66,7 +79,7 @@ const DashboardRoute = () => {
                 <AddMoney setModal={setModal} />
             }
 
-            <div className="dashboard-route flex flex-col font-medium gap-4 cryptos-page text-base">
+            <div className="dashboard-route flex flex-col font-medium gap-4 cryptos-page text-base w-full px-5">
                 <div className="flex gap-2 mt-10">
                     <div className="flex p-6 gap-3 items-center card flex-1 justify-between">
                         <div className="flex items-center gap-3">
@@ -91,27 +104,33 @@ const DashboardRoute = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-4 p-4 card">
-                    <span className="text-xl">Current Holdings</span>
-                    <div className="flex text-gray-500">
-                        <CryptoHoldings holdings={cryptoHoldings} listOfCoins={listOfCoins} />
-                    </div>
-                </div>
-                <div className="flex gap-5">
-                    <div className="flex flex-col gap-4 p-4 px-6 card">
-                        <span className="text-xl">Crypto Transaction History</span>
-                        <div className="flex text-gray-500">
-                            <span>No transactions yet!</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col gap-4 p-4 px-6 card">
-                        <span className="text-xl">Fiat Transaction History</span>
-                        <div className="flex text-gray-500">
-                            <span>No deposits/withdrawals yet.</span>
-                        </div>
-                    </div>
-                </div>
+                <div className="flex w-full gap-4 items-start flex-wrap">
+                    <div className="flex flex-col gap-4" style={{ flex: "2" }}>
 
+                        <div className="flex flex-col gap-4 p-5 card">
+                            <span className="text-lg flex w-full justify-between items-center">Current Holdings<span className="text-sm cursor-pointer">View all</span></span>
+                            <div className="flex text-gray-500">
+                                <CryptoHoldings holdings={cryptoHoldings.slice(0, 6)} listOfCoins={listOfCoins} />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-5">
+                            <div className="flex flex-col gap-4 p-4 px-6 card w-full">
+                                <span className="text-lg flex w-full justify-between items-center"><span>Fiat Transaction History</span><span className="text-sm cursor-pointer">View all</span></span>
+                                <div className="flex text-gray-500">
+                                    <FiatTransactionsDashboard transactions={fiatTransactions.slice(0, 8)} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4 p-5 px-6 card flex-1">
+                        <span className="text-lg flex w-full justify-between items-center"><span>Crypto Transaction History</span><span className="text-sm cursor-pointer">View all</span></span>
+                        <div className="flex text-gray-500">
+                            <CryptoTransactionsDashboard transactions={cryptoTransactions.slice(0, 12)} />
+                        </div>
+                    </div>
+                </div>
             </div>
         </Fragment>
     )

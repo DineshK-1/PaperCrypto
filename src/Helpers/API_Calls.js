@@ -170,6 +170,36 @@ export async function FetchCryptoHoldings(uid) {
   }
 }
 
+export async function FetchCryptoTransactions(uid) {
+  const options = {
+    method: 'GET',
+    url: `https://papercryptoapi.up.railway.app/users/${uid}/crypto_transactions`,
+  };
+
+  try {
+    const response = await axios.request(options);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function FetchFiatTransactions(uid) {
+  const options = {
+    method: 'GET',
+    url: `https://papercryptoapi.up.railway.app/users/${uid}/fiat_transactions`,
+  };
+
+  try {
+    const response = await axios.request(options);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function FetchListOfCoins(symbol_list) {
   const listofSymbols = {}
 

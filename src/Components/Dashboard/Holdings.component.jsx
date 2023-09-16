@@ -3,17 +3,13 @@ import CurrencyText from "../CurrencyText/CurrencyText.component";
 
 const CryptoHoldings = ({ holdings, listOfCoins }) => {
 
-    console.log(listOfCoins)
-
     useEffect(() => {
         if (!listOfCoins) {
             return;
         }
-
-
     }, [listOfCoins])
 
-    if (!holdings)
+    if (!holdings.length)
         return <span>Get Started with Crypto today by clicking here!</span>
 
     return (
