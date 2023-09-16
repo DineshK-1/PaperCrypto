@@ -48,7 +48,7 @@ export async function FetchCoinPrice(uid, timePeriod) {
 export async function FetchDBData(uid, accessToken) {
   const options = {
     method: 'GET',
-    url: `https://papercryptoapi.onrender.com/users/${uid}`,
+    url: `https://papercryptoapi.up.railway.app/users/${uid}`,
   };
 
   try {
@@ -63,7 +63,7 @@ export async function FetchDBData(uid, accessToken) {
 export async function CreateUserinDB(uid, First_Name, Last_Name, Email, Phone) {
   const options = {
     method: 'POST',
-    url: `https://papercryptoapi.onrender.com/create_user`,
+    url: `https://papercryptoapi.up.railway.app/create_user`,
     params: {
       uid,
       First_Name,
@@ -85,7 +85,7 @@ export async function CreateUserinDB(uid, First_Name, Last_Name, Email, Phone) {
 export async function addMoneyDB(uid, amount) {
   const options = {
     method: 'POST',
-    url: `https://papercryptoapi.onrender.com/add_balance`,
+    url: `https://papercryptoapi.up.railway.app/add_balance`,
     params: {
       uid,
       amount
@@ -104,7 +104,7 @@ export async function addMoneyDB(uid, amount) {
 export async function WithdrawMoney(uid, amount) {
   const options = {
     method: 'POST',
-    url: `https://papercryptoapi.onrender.com/withdraw_money`,
+    url: `https://papercryptoapi.up.railway.app/withdraw_money`,
     params: {
       uid,
       amount
@@ -123,7 +123,7 @@ export async function WithdrawMoney(uid, amount) {
 export async function FetchBalance(uid) {
   const options = {
     method: 'POST',
-    url: `https://papercryptoapi.onrender.com/users/${uid}/fetch_balance`,
+    url: `https://papercryptoapi.up.railway.app/users/${uid}/fetch_balance`,
   };
 
   try {
@@ -138,7 +138,7 @@ export async function FetchBalance(uid) {
 export async function BuyCryptoAPI(uid, token_id, amount) {
   const options = {
     method: 'POST',
-    url: `https://papercryptoapi.onrender.com/users/${uid}/buy_crypto`,
+    url: `https://papercryptoapi.up.railway.app/users/${uid}/buy_crypto`,
     params: {
       token_id,
       amount
@@ -158,7 +158,7 @@ export async function BuyCryptoAPI(uid, token_id, amount) {
 export async function FetchCryptoHoldings(uid) {
   const options = {
     method: 'GET',
-    url: `https://papercryptoapi.onrender.com/users/${uid}/crypto_holdings`,
+    url: `https://papercryptoapi.up.railway.app/users/${uid}/crypto_holdings`,
   };
 
   try {

@@ -11,7 +11,9 @@ export const UserProvider = ({ children }) => {
 
     const [db_user, setDBUser] = useState({});
 
-    const value = { user, refresh, setRefresh, db_user, setDBUser }
+    const [userCreated, setUserCreated] = useState(false);
+
+    const value = { user, refresh, setRefresh, userCreated, setUserCreated,  db_user, setDBUser }
 
     useEffect(() => {
         const unsubscribe = OnAuthStateChangedListener((user) => {

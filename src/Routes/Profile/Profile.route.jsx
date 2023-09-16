@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 const ProfileRoute = () => {
 
-    const { user } = useContext(UserContext);
+    const { user, setUserCreated, setDBUser } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -19,6 +19,8 @@ const ProfileRoute = () => {
         <div className="profile-route">
             <button className="login" onClick={() => {
                 signOutOfApp()
+                setUserCreated(false)
+                setDBUser(null)
             }}>Logout</button>
         </div>
     )

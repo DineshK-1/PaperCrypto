@@ -6,28 +6,33 @@ import { UserContext } from './Contexts/user.context'
 import { FetchDBData } from './Helpers/API_Calls'
 
 function App() {
-  const { user, setDBUser, refresh } = useContext(UserContext);
+  const { user, db_user, setDBUser, refresh, setUserCreated, userCreated } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   const location = useLocation();
 
-  const [userCreated, setUserCreated] = useState(false);
+
 
   useEffect(() => {
-    if (location.pathname != "/CompleteRegisteration") {
-      if (user) {
-        if (!userCreated) {
-          FetchDBData(user.uid).then((res) => {
-            if (!res) {
-              setUserCreated(false);
-              navigate("/CompleteRegisteration")
-            } else {
-              setUserCreated(true);
-            }
-            return res
-          })
+    if (user) {
+      if (location.pathname != "/CompleteRegisteration") {
+        if (!db_user) {
+          if (!userCreated) {
+            console.log("called")
+            FetchDBData(user.uid).then((res) => {
+              console.log(res)
+              if (!res) {
+                setUserCreated(false);
+                navigate("/CompleteRegisteration")
+              } else {
+                setUserCreated(true);
+              }
+              return res
+            })
+          }
         }
+
       }
     }
   }, [user, userCreated, location])
