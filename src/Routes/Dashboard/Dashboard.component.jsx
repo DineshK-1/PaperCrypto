@@ -89,7 +89,7 @@ const DashboardRoute = () => {
                 <div className="flex gap-2 mt-10">
                     <div className="flex p-6 gap-3 items-center card flex-1 justify-between">
                         <div className="flex items-center gap-3">
-                            <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-slate-300">account_balance</span>
+                            <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-white">account_balance</span>
                             <div className="flex flex-col">
                                 <span className="text-sm">Current Balance:</span>
                                 <span className="blue font-semibold"><CurrencyText amoun={db_user?.Current_Balance} /></span>
@@ -102,7 +102,7 @@ const DashboardRoute = () => {
                         >add</span>
                     </div>
                     <div className="flex p-6 gap-3 items-center card flex-1">
-                        <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-slate-300">currency_bitcoin</span>
+                        <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-white">currency_bitcoin</span>
                         <div className="flex flex-col">
                             <span className="text-sm">Portfolio Value:</span>
                             <span className="blue font-semibold flex gap-1 items-center">
@@ -118,7 +118,7 @@ const DashboardRoute = () => {
 
                         <div className="flex flex-col gap-4 p-5 card">
                             <span className="text-lg flex w-full justify-between items-center">Current Holdings<span className="text-sm cursor-pointer">View all</span></span>
-                            <div className="flex text-gray-500">
+                            <div className="flex">
                                 <CryptoHoldings holdings={cryptoHoldings.slice(0, 6)} listOfCoins={listOfCoins} />
                             </div>
                         </div>
@@ -126,7 +126,7 @@ const DashboardRoute = () => {
                         <div className="flex gap-5">
                             <div className="flex flex-col gap-4 p-4 px-6 card w-full">
                                 <span className="text-lg flex w-full justify-between items-center"><span>Fiat Transaction History</span><span className="text-sm cursor-pointer">View all</span></span>
-                                <div className="flex text-gray-500">
+                                <div className="flex">
                                     <FiatTransactionsDashboard transactions={fiatTransactions.slice(0, 8)} />
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ const DashboardRoute = () => {
 
                     <div className="flex flex-col gap-4 p-5 px-6 card flex-1">
                         <span className="text-lg flex w-full justify-between items-center"><span>Crypto Transaction History</span><span className="text-sm cursor-pointer">View all</span></span>
-                        <div className="flex text-gray-500">
+                        <div className="flex">
                             <CryptoTransactionsDashboard transactions={cryptoTransactions.slice(0, 12)} />
                         </div>
                     </div>

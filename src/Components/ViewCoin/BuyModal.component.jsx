@@ -26,8 +26,10 @@ const BuyModal = ({ coin, setBuyModal }) => {
     if (!user) {
         return (
             <div className="modal-blur">
-                <div className="buy-modal login-container flex flex-col gap-4 bg-white p-6 rounded-lg font-semibold">
+                <div className="buy-modal login-container flex flex-col gap-4 p-6 card rounded-lg font-semibold">
+                    <span className="text-red-500 self-end" onClick={() => { setBuyModal(false) }}>Close</span>
                     Login to paper trade cryptocurrencies.
+
                 </div>
             </div>
         )
@@ -35,7 +37,7 @@ const BuyModal = ({ coin, setBuyModal }) => {
 
     return (
         <div className="modal-blur">
-            <div className="buy-modal login-container flex flex-col gap-4 bg-white p-6 rounded-lg font-semibold">
+            <div className="buy-modal login-container flex flex-col gap-4 card p-6 rounded-lg font-semibold">
                 <span className="material-symbols-outlined cursor-pointer self-end bg-red-800 rounded-lg p-1 text-lg text-white"
                     onClick={() => { setBuyModal(false) }}>close</span>
                 <span>Place order to buy {coin.name} <span className="text-xs text-gray-500">{coin.symbol}</span></span>
@@ -54,7 +56,7 @@ const BuyModal = ({ coin, setBuyModal }) => {
                 <span className="text-xs">Amount in fiat</span>
                 <input type="text" placeholder={`Enter amount in fiat`} value={fiatAmount} onChange={(e) => {
                     setFiatAmount(e.target.value)
-                    setCryptoAmount(e.target.value/coin.price)
+                    setCryptoAmount(e.target.value / coin.price)
                 }} />
 
                 <div className="flex flex-col gap-1">

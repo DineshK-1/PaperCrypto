@@ -14,12 +14,15 @@ const SellModal = ({ coin, setSellModal }) => {
     const [holdings, setHoldings] = useState()
 
     useEffect(() => {
-        FetchIndividualCryptoHolding(user.uid, coin.uuid).then((res) => {
-            setHoldings(res.amount)
-        })
-    }, [selling])
+        if (user) {
+            FetchIndividualCryptoHolding(user.uid, coin.uuid).then((res) => {
+                setHoldings(res.amount)
+            })
+        }
+    }, [selling, user])
 
     const SellCryptoFn = () => {
+        if (!user) return;
         setSelling(true)
         SelLCryptoAPI(user.uid, coin.uuid, parseFloat(cryptoAmount)).then((res) => {
             if (res.status == "Success") {
@@ -34,8 +37,10 @@ const SellModal = ({ coin, setSellModal }) => {
     if (!user) {
         return (
             <div className="modal-blur">
-                <div className="buy-modal login-container flex flex-col gap-4 bg-white p-6 rounded-lg font-semibold">
+                <div className="buy-modal login-container flex flex-col gap-4 p-6 card rounded-lg font-semibold">
+                    <span className="text-red-500 self-end" onClick={() => { setSellModal(false) }}>Close</span>
                     Login to paper trade cryptocurrencies.
+
                 </div>
             </div>
         )
@@ -43,7 +48,7 @@ const SellModal = ({ coin, setSellModal }) => {
 
     return (
         <div className="modal-blur">
-            <div className="buy-modal login-container flex flex-col gap-4 bg-white p-6 rounded-lg font-semibold">
+            <div className="buy-modal login-container flex flex-col gap-4 card p-6 rounded-lg font-semibold">
                 <span className="material-symbols-outlined cursor-pointer self-end bg-red-800 rounded-lg p-1 text-lg text-white"
                     onClick={() => { setSellModal(false) }}>close</span>
                 <span>Place order to sell {coin.name} <span className="text-xs text-gray-500">{coin.symbol}</span></span>

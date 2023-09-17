@@ -1,15 +1,15 @@
 import CurrencyText from "../CurrencyText/CurrencyText.component";
 
-const CryptoTransactionsDashboard = ({transactions}) => {
+const CryptoTransactionsDashboard = ({ transactions }) => {
 
     if (!transactions.length)
         return <span>No transactions yet!</span>
 
     return (
-        <div className="flex flex-col gap-2 text-black w-full text-sm">
+        <div className="flex flex-col gap-2  w-full text-sm">
             {transactions.map((transaction) => {
                 return (
-                    <div key={transaction.transaction_id} className="flex items-center justify-between px-2 py-1 rounded-lg" style={{
+                    <div key={transaction.transaction_id} className="flex items-center justify-between px-2 py-1 rounded-lg transaction-card" style={{
                         border: transaction.transaction_type === "BUY" ? "1px solid #4be24b" : "1px solid #e03535",
                         backgroundColor: transaction.transaction_type === "BUY" ? "rgba(75, 226, 75, .5)" : "rgba(224, 53, 53, .5)"
                     }}>

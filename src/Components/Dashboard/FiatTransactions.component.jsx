@@ -6,12 +6,12 @@ const FiatTransactionsDashboard = ({ transactions }) => {
         return <span>No transactions yet!</span>
 
     return (
-        <div className="flex flex-col w-full text-black text-sm gap-3">
+        <div className="flex flex-col w-full text-sm gap-3">
             {transactions.map((transaction) => {
                 return (
                     <div key={transaction.transaction_id} className="flex items-center justify-between">
                         <div className="flex gap-2 items-center">
-                            <div className="flex text-xs px-2 py-1 rounded-md" style={{
+                            <div className="flex text-xs px-2 py-1 rounded-md transaction-card" style={{
                                 border: transaction.transaction_type === "Deposit" ? "1px solid #4be24b" : "1px solid #e03535",
                                 backgroundColor: transaction.transaction_type === "Deposit" ? "rgba(75, 226, 75, .5)" : "rgba(224, 53, 53, .5)"
                             }}>{transaction.transaction_type}</div>

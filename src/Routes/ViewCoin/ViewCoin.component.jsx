@@ -246,12 +246,12 @@ const ViewCoin = () => {
                         </div>
                     </div>
                     <div className="flex flex-col gap-3 p-2 coin-details-container whitespace-nowrap text-gray-600">
-                        <div className="flex items-center gap-2 text-black">
+                        <div className="flex items-center gap-2 sec-text">
                             <div className="text-4xl"><CurrencyText amoun={coinDetails.price} /></div>
                             <div className={coinDetails.change >= 0 ? "profit-color" : "loss-color"}>{coinDetails.change} <span className="text-xs">{"(24h)"}</span></div>
                         </div>
 
-                        <div className="text-xl text-black">Key Stats</div>
+                        <div className="text-xl sec-text">Key Stats</div>
                         <div className="flex gap-2 justify-between">24h Volume<span><CurrencyText amoun={coinDetails["24hVolume"]} /></span></div>
                         <div className="flex gap-2 justify-between">Market Cap<span><CurrencyText amoun={coinDetails["marketCap"]} /></span></div>
                         <div className="flex gap-2 justify-between">Diluted Market Cap<span><CurrencyText amoun={coinDetails["fullyDilutedMarketCap"]} /></span></div>
@@ -265,7 +265,7 @@ const ViewCoin = () => {
                             </div>
                         </div>
 
-                        <div className="text-xl text-black">Links</div>
+                        <div className="text-xl sec-text">Links</div>
                         <div className="flex flex-wrap w-fit" style={{ maxWidth: "350px" }}>
                             {coinDetails.links.map((e, i) => {
                                 return <Link key={i} to={e.url} className="p-2">{e.name}</Link>
