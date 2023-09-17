@@ -15,6 +15,9 @@
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+td{
+    width: max-content;
+}
 
 .modal-blur {
     position: fixed;
@@ -166,5 +169,5 @@ tbody {
 }
 
 td.overflow-column {
-    max-width: 80px;
+    max-width: 120px;
 }

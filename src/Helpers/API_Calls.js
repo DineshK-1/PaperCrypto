@@ -154,6 +154,25 @@ export async function BuyCryptoAPI(uid, token_id, amount) {
   }
 }
 
+export async function SelLCryptoAPI(uid, token_id, amount) {
+  const options = {
+    method: 'POST',
+    url: `https://papercryptoapi.up.railway.app/users/${uid}/sell_crypto`,
+    params: {
+      token_id,
+      amount
+    }
+  };
+
+  try {
+    const response = await axios.request(options);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 export async function FetchCryptoHoldings(uid) {
   const options = {
@@ -204,6 +223,24 @@ export async function FetchInitialBalance(uid) {
   const options = {
     method: 'GET',
     url: `https://papercryptoapi.up.railway.app/users/${uid}/initial_portfolio_value`,
+  };
+
+  try {
+    const response = await axios.request(options);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function FetchIndividualCryptoHolding(uid, token_id) {
+  const options = {
+    method: 'GET',
+    url: `https://papercryptoapi.up.railway.app/users/${uid}/get_crypto_holding`,
+    params:{
+      token_id
+    }
   };
 
   try {

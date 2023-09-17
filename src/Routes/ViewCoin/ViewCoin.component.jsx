@@ -7,6 +7,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FetchCoin, FetchCoinPrice } from "../../Helpers/API_Calls";
 import BuyModal from "../../Components/ViewCoin/BuyModal.component";
+import SellModal from "../../Components/ViewCoin/SellModal.component";
 
 
 ChartJS.register(
@@ -211,6 +212,10 @@ const ViewCoin = () => {
             {
                 buyModal &&
                 <BuyModal coin={coinDetails} setBuyModal={setBuyModal} />
+            }
+             {
+                sellModal &&
+                <SellModal coin={coinDetails} setSellModal={setSellModal} />
             }
             <div className="coin flex flex-col items-center font-semibold mt-6 gap-3">
                 <div className="breadcrumb">
