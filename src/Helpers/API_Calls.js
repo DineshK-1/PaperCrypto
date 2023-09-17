@@ -200,6 +200,21 @@ export async function FetchFiatTransactions(uid) {
   }
 }
 
+export async function FetchInitialBalance(uid) {
+  const options = {
+    method: 'GET',
+    url: `https://papercryptoapi.up.railway.app/users/${uid}/initial_portfolio_value`,
+  };
+
+  try {
+    const response = await axios.request(options);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function FetchListOfCoins(symbol_list) {
   const listofSymbols = {}
 

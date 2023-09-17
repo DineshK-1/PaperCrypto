@@ -28,7 +28,7 @@ const CryptoHoldings = ({ holdings, listOfCoins }) => {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col">
+                                <div className="flex flex-col items-end">
                                     <span><CurrencyText amoun={listOfCoins[holding.token_symbol]?.price * holding.amount} /></span>
                                     <span className="text-gray-500 text-xs self-end">{holding.amount}</span>
                                 </div>

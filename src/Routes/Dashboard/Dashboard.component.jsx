@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { UserContext } from "../../Contexts/user.context";
 import AddMoney from "../../Components/AddMoney/AddMoney.component";
 import CurrencyText from "../../Components/CurrencyText/CurrencyText.component";
-import { FetchCryptoHoldings, FetchCryptoTransactions, FetchFiatTransactions, FetchListOfCoins } from "../../Helpers/API_Calls";
+import { FetchCryptoHoldings, FetchCryptoTransactions, FetchFiatTransactions, FetchInitialBalance, FetchListOfCoins } from "../../Helpers/API_Calls";
 import CryptoHoldings from "../../Components/Dashboard/Holdings.component";
 import CryptoTransactionsDashboard from "../../Components/Dashboard/CryptoTransactions.component";
 import FiatTransactionsDashboard from "../../Components/Dashboard/FiatTransactions.component";
@@ -22,6 +22,8 @@ const DashboardRoute = () => {
     const [fiatTransactions, setFiatTransactions] = useState([]);
     const [cryptoTransactions, setCryptoTransactions] = useState([]);
 
+    const [initialPortfolioValue, setInitialPortfolioValue] = useState(0);
+
     useEffect(() => {
         if (!user) {
             return;
@@ -37,6 +39,10 @@ const DashboardRoute = () => {
 
         FetchCryptoTransactions(user.uid).then((res) => {
             setCryptoTransactions(res)
+        })
+
+        FetchInitialBalance(user.uid).then((res) => {
+            setInitialPortfolioValue(res?.original_value)
         })
     }, [])
 
@@ -99,7 +105,10 @@ const DashboardRoute = () => {
                         <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-slate-300">currency_bitcoin</span>
                         <div className="flex flex-col">
                             <span className="text-sm">Portfolio Value:</span>
-                            <span className="blue font-semibold"><CurrencyText amoun={portValue} /></span>
+                            <span className="blue font-semibold flex gap-1 items-center">
+                                <CurrencyText amoun={portValue} />
+                                <span className={"text-xs" + (portValue - initialPortfolioValue >= 0 ? " text-green-500" : " text-red-500")}>{portValue - initialPortfolioValue >= 0 ? "+" : ""}{(portValue - initialPortfolioValue).toFixed(2)}</span>
+                            </span>
                         </div>
                     </div>
                 </div>
