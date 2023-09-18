@@ -34,7 +34,7 @@ td {
     z-index: 1;
 }
 
-.sec-text{
+.sec-text {
     color: var(--sec-text);
 }
 
@@ -184,4 +184,8 @@ td.overflow-column {
 
 .transaction-card:hover {
     background-color: rgba(249, 249, 249, .6) !important;
+}
+
+.second-gray {
+    color: var(--second-gray);
 }

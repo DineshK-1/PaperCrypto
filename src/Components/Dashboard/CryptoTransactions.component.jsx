@@ -6,7 +6,7 @@ const CryptoTransactionsDashboard = ({ transactions }) => {
         return <span>No transactions yet!</span>
 
     return (
-        <div className="flex flex-col gap-2  w-full text-sm">
+        <div className="flex flex-col gap-2  w-full text-sm font-semibold">
             {transactions.map((transaction) => {
                 return (
                     <div key={transaction.transaction_id} className="flex items-center justify-between px-2 py-1 rounded-lg transaction-card" style={{
@@ -18,13 +18,13 @@ const CryptoTransactionsDashboard = ({ transactions }) => {
 
                             <div className="flex flex-col">
                                 <span>{transaction.token_name}</span>
-                                <span className="text-xs text-gray-500">{transaction.token_symbol}</span>
+                                <span className="text-xs second-gray">{transaction.token_symbol}</span>
                             </div>
                         </div>
 
                         <div className="flex flex-col items-end">
                             <CurrencyText amoun={transaction.amount * transaction.token_price} />
-                            <div className="text-xs text-gray-500">{transaction.amount} Tokens</div>
+                            <div className="text-xs second-gray">{transaction.amount} Tokens</div>
                         </div>
                     </div>
                 )

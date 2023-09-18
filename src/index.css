@@ -29,6 +29,8 @@
   --blue-color: #5160f9;
 
   --sec-text: #ffffffdf;
+
+  --second-gray: #ffffffc0;
 }
 
 [data-theme="light"] {
@@ -40,6 +42,7 @@
   --blue-color: #1450A3;
 
   --sec-text: #000;
+  --second-gray: #3e3d3d;
 }
 
 a {

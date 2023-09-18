@@ -7,8 +7,8 @@ const BuyModal = ({ coin, setBuyModal }) => {
 
     const { db_user, user, setRefresh } = useContext(UserContext);
 
-    const [cryptoAmount, setCryptoAmount] = useState();
-    const [fiatAmount, setFiatAmount] = useState(0);
+    const [cryptoAmount, setCryptoAmount] = useState("");
+    const [fiatAmount, setFiatAmount] = useState("");
     const [buying, setBuying] = useState(false);
 
     const BuyCryptoFn = () => {
