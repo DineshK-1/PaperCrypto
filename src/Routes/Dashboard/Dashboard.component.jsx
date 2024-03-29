@@ -86,7 +86,7 @@ const DashboardRoute = () => {
             }
 
             <div className="dashboard-route flex flex-col font-medium gap-4 cryptos-page text-base w-full px-5">
-                <div className="flex gap-2 mt-10">
+                <div className="flex gap-2 flex-wrap mt-10">
                     <div className="flex p-6 gap-3 items-center card flex-1 justify-between">
                         <div className="flex items-center gap-3">
                             <span className="material-symbols-outlined bg-indigo-800 rounded-lg p-2 text-white">account_balance</span>

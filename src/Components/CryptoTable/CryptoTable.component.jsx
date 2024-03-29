@@ -19,10 +19,14 @@ const CryptoTable = ({ coinData }) => {
 
     const navigate = useNavigate();
 
+    if (coinData.length === 0) {
+        return <span>Loading Data</span>
+    }
+
     return (
-        <table className="crypto-table">
+        <table className="crypto-table rounded-xl">
             <thead>
-                <tr className="select-none">
+                <tr className="select-none rounded-t-xl">
                     <th>#</th>
                     <th>Symbol</th>
                     <th>Price</th>
@@ -33,7 +37,7 @@ const CryptoTable = ({ coinData }) => {
                 </tr>
             </thead>
             <tbody>
-                {coinData["coins"].map((coin) => {
+                {coinData["coins"]?.map((coin) => {
                     return (
                         <tr className="select-none cursor-pointer text-sm" key={coin.uuid} onClick={() => navigate(`/Cryptos/${coin.uuid}`)}>
                             <td style={{ width: "80px" }}>

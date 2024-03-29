@@ -1,5 +1,32 @@
 import axios from "axios"
 
+export async function FetchCoins(limit) {
+  const options = {
+    method: 'GET',
+    url: `https://coinranking1.p.rapidapi.com/coins`,
+    params: {
+      referenceCurrencyUuid: 'yhjMzLPhuIDl',
+      timePeriod: '24h',
+    'tiers[0]': '1',
+      orderBy: 'marketCap',
+      orderDirection: 'desc',
+      limit,
+      offset: '0'
+    },
+    headers: {
+      'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
+      'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function FetchCoin(uid, timePeriod) {
   const options = {
     method: 'GET',

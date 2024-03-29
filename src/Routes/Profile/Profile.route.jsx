@@ -15,13 +15,19 @@ const ProfileRoute = () => {
         }
     }, [user])
 
+    console.log(user)
+
     return (
-        <div className="profile-route">
-            <button className="login" onClick={() => {
-                signOutOfApp()
-                setUserCreated(false)
-                setDBUser(null)
-            }}>Logout</button>
+        <div className="profile-route flex w-full h-screen justify-center items-center flex-col gap-4">
+            <div className="flex flex-col  gap-4  p-6 rounded-xl bg-gray-900">
+                <h2>Hello, {user.displayName}</h2>
+                <input type="text" value={user?.email} className="input" disabled />
+                <button className="login" onClick={() => {
+                    signOutOfApp()
+                    setUserCreated(false)
+                    setDBUser(null)
+                }}>Logout</button>
+            </div>
         </div>
     )
 }
