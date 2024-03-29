@@ -15,12 +15,14 @@ const ProfileRoute = () => {
         }
     }, [user])
 
-    console.log(user)
+    if (!user) {
+        return <span>Loading</span>
+    }
 
     return (
         <div className="profile-route flex w-full h-screen justify-center items-center flex-col gap-4">
             <div className="flex flex-col  gap-4  p-6 rounded-xl bg-gray-900">
-                <h2>Hello, {user.displayName}</h2>
+                <h2>Hello, {user?.displayName}</h2>
                 <input type="text" value={user?.email} className="input" disabled />
                 <button className="login" onClick={() => {
                     signOutOfApp()

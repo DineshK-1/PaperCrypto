@@ -24,7 +24,6 @@ const NavBar = () => {
                 <button onClick={() => { setDarkMode((e) => !e) }}>{
                     darkMode ? <FaMoon /> : <IoSunnySharp />}
                 </button>
-                <Link to="/"><div className={"nav-item" + (location.pathname === "/" ? " active" : "")}>Home</div></Link>
                 {user &&
                     <Link to="/Dashboard"><div className={"nav-item" + (location.pathname === "/Dashboard" ? " active" : "")}>Dashboard</div></Link>
                 }
